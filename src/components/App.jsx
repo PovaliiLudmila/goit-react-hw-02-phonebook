@@ -1,24 +1,24 @@
 import { Component } from 'react';
-import shortid from 'shortid';
-import Container from './components/Container/Container';
-import ContactForm from './components/ContactForm/ContactForm';
-import Filter from './components/Filter/Filter';
-import ContactList from './components/ContactList/ContactList';
+import { nanoid } from 'nanoid'
+import Container from './Container/Container';
+import ContactForm from './ContactForm/ContactForm';
+import ContactFilter from './ContactFilter/ContactFilter';
+import ContactList from './ContactList/ContactList';
 
 class App extends Component {
   state = {
     contacts: [
-      { id: shortid.generate(), name: 'Rosie Simpson', number: '459-12-56' },
-      { id: shortid.generate(), name: 'Hermione Kline', number: '443-89-12' },
-      { id: shortid.generate(), name: 'Eden Clements', number: '645-17-79' },
-      { id: shortid.generate(), name: 'Annie Copeland', number: '227-91-26' },
+      { id: nanoid(), name: 'Rosie Simpson', number: '459-12-56' },
+      { id: nanoid(), name: 'Hermione Kline', number: '443-89-12' },
+      { id: nanoid(), name: 'Eden Clements', number: '645-17-79' },
+      { id: nanoid(), name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
   };
 
   addContact = ({ name, number }) => {
     const contact = {
-      id: shortid.generate(),
+      id: nanoid(),
       name,
       number,
     };
@@ -72,7 +72,7 @@ class App extends Component {
         <ContactForm onSubmit={this.addContact} />
         <h2>Contacts</h2>
         {contacts.length > 1 && (
-          <Filter value={filter} onChange={this.changeFilter} />
+          <ContactFilter value={filter} onChange={this.changeFilter} />
         )}
         {contacts.length > 0 ? (
           <ContactList

@@ -1,9 +1,9 @@
 @import-normalize; /* bring in normalize.css styles */
 :root {
-  --primaryTextColor: #212121;
-  --secondaryTextColor: #566573;
-  --accentColor: #bc8f8f;
-  --bgColor: #fff5ee;
+  --primaryTextColor: #1b1a1a;
+  --secondaryTextColor: #0d1013;
+  --accentColor: #8e8ddd;
+  --bgColor: #c2c9b6;
   --boxShadow: 1px 4px 6px rgba(0, 0, 0, 0.16), 0px 4px 4px rgba(0, 0, 0, 0.06),
     0px 1px 1px rgba(0, 0, 0, 0.12);
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -16,6 +16,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: url('./images/5594016.jpg');
 }
 
 code {
