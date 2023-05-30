@@ -1,32 +1,31 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
+import { nanoid } from 'nanoid'
+import { Formik } from 'formik';
 
 class ContactForm extends Component {
-  state = {
-    name: '',
-    number: '',
+  handleSubmit = ({ name, number }, { resetForm }) => {
+    const nameInContacts = this.props.contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+    if (nameInContacts) {
+      alert(`${name} is already in contacts`);
+      return;
+    }
+    const contact = { id: nanoid(), name, number };
+    this.props.onSubmit(contact);
+    resetForm();
   };
 
-  handleChange = e => {
-    const { name, value } = e.currentTarget;
-
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-
-    this.props.onSubmit(this.state);
-
-    this.setState({ name: '', number: '' });
-  };
 
   render() {
     return (
-      <form className={css.form} onSubmit={this.handleSubmit}>
-        <label className={css.label}>
-          Name
+    <Formik className={css.form}
+        initialValues={{ name: '', number: '' }}
+        onSubmit={this.handleSubmit}
+      >
+      <label className={css.label}>Name</label>
           <input
             className={css.input}
             type="text"
@@ -35,9 +34,8 @@ class ContactForm extends Component {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
           />
-        </label>
-        <label className={css.label}>
-          Number
+   
+        <label className={css.label}>Number</label>
           <input
             className={css.input}
             type="text"
@@ -46,11 +44,10 @@ class ContactForm extends Component {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
           />
-        </label>
         <button className={css.btn} type="submit">
           Add contact
         </button>
-      </form>
+      </Formik>
     );
   }
 }
