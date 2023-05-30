@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
 import { nanoid } from 'nanoid'
-import { Formik } from 'formik';
+import { Formik, Form, Field } from 'formik';
 
 class ContactForm extends Component {
   handleSubmit = ({ name, number }, { resetForm }) => {
@@ -23,12 +23,13 @@ class ContactForm extends Component {
 
   render() {
     return (
-    <Formik className={css.form}
+    <Formik 
         initialValues={{ name: '', number: '' }}
         onSubmit={this.handleSubmit}
       >
+      <Form autoComplete="off" className={css.form}>
       <label className={css.label}>Name</label>
-          <input
+          <Field
             className={css.input}
             type="text"
             name="name"
@@ -38,7 +39,7 @@ class ContactForm extends Component {
           />
    
         <label className={css.label}>Number</label>
-          <input
+          <Field
             className={css.input}
             type="text"
             name="number"
@@ -49,6 +50,7 @@ class ContactForm extends Component {
         <button className={css.btn} type="submit">
           Add contact
         </button>
+        </Form>
       </Formik>
     );
   }
