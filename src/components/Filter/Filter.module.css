@@ -1,8 +1,8 @@
 .label {
     display: block;
-    margin-top: 10px;
-    color: var(--secondaryTextColor);
-    font-weight: 500;
+    margin-top: 20px;
+    color: #111111;
+    font-weight: 600;
     font-size: 18px;
   }
   
@@ -14,9 +14,9 @@
     border: 1px solid rgba(33, 33, 33, 0.2);
     border-radius: 4px;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 14px;
   }
   
   .input:focus {
-    outline-color: var(--accentColor);
+    outline-color: #31baf0;
   }

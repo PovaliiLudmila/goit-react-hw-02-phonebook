@@ -2,10 +2,10 @@ import { Component } from 'react';
 import { nanoid } from 'nanoid'
 import Container from './Container/Container';
 import ContactForm from './ContactForm/ContactForm';
-import ContactFilter from './ContactFilter/ContactFilter';
+import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
 
-class App extends Component {
+export class App extends Component {
   state = {
     contacts: [
       { id: nanoid(), name: 'Rosie Simpson', number: '459-12-56' },
@@ -72,7 +72,7 @@ class App extends Component {
         <ContactForm onSubmit={this.addContact} />
         <h2>Contacts</h2>
         {contacts.length > 1 && (
-          <ContactFilter value={filter} onChange={this.changeFilter} />
+          <Filter value={filter} onChange={this.changeFilter} />
         )}
         {contacts.length > 0 ? (
           <ContactList
@@ -86,5 +86,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

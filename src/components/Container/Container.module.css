@@ -4,6 +4,6 @@
     margin-right: auto;
     text-align: center;
     padding: 40px;
-    background-color: var(--bgColor);
+    background-color: #d3d7f8;
     box-shadow: var(--boxShadow);
   }

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import css from './ContactFilter.module.css';
+import css from './Filter.module.css';
 
 function Filter({ value, onChange }) {
   return (
