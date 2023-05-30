@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import css from './ContactList.module.css';
 
-function ContactList({ contacts, onDeleteContact }) {
+function ContactList({ contacts, onDelete }) {
   return (
     <ul className={css.list}>
       {contacts.map(({ id, name, number }) => (
@@ -12,7 +12,7 @@ function ContactList({ contacts, onDeleteContact }) {
           <button
             className={css.btn}
             type="button"
-            onClick={() => onDeleteContact(id)}
+            onClick={() => onDelete(id)}
           />
         </li>
       ))}

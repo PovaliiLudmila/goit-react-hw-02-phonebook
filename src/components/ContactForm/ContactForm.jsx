@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
 import { nanoid } from 'nanoid'
@@ -16,6 +16,8 @@ class ContactForm extends Component {
     const contact = { id: nanoid(), name, number };
     this.props.onSubmit(contact);
     resetForm();
+
+  
   };
 
 
