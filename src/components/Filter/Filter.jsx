@@ -3,7 +3,7 @@ import css from './Filter.module.css';
 
 function Filter({ value, onFilter }) {
   return (
-    <label htmlFor="filter" className={css.label}>
+    <label className={css.label}>
       Find contacts by name
       <input
         className={css.input}
