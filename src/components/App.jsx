@@ -5,7 +5,9 @@ import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
 
 export class App extends Component {
-  state = {
+  constructor() {
+    super();
+  this.state = {
     contacts: [
       { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
       { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
@@ -14,7 +16,8 @@ export class App extends Component {
     ],
     filter: '',
   };
-  onSubmit = event => {
+  }
+  addContact = event => {
     const loweredCase = event.name.toLowerCase().trim();
 
     const exists = this.state.contacts.some(
@@ -23,29 +26,19 @@ export class App extends Component {
 
     if (exists) {
       alert(`${event.name} is already in contacts!`);
+      return;
     } else {
-      this.setState(({ contacts }) => ({
-        contacts: [...contacts, event],
-      }));
+      this.setState({ contacts: [...this.state.contacts, event] });
     }
   };
 
-  onFilter = e => {
+  addFilter = e => {
     this.setState({
-      filter: e.target.value,
+      filter: e.currentTarget.value
     });
   };
 
-  onDeleteHandler = id => {
-    const filteredContacts = this.state.contacts.filter(
-      contact => contact.id !== id
-    );
-    this.setState(prevState => {
-      return { ...prevState, contacts: [...filteredContacts] };
-    });
-  };
-
-  onFilterContacts = () => {
+  filteredContacts = () => {
     const { filter, contacts } = this.state;
 
     return contacts.filter(contact =>
@@ -53,21 +46,23 @@ export class App extends Component {
     );
   };
 
+  onDelete = id =>
+    this.setState(({ contacts }) => ({
+      contacts: contacts.filter(contact => contact.id !== id),
+    }));
 
 
   render() {
-    const { filter, contacts } = this.state;
+    const { filter } = this.state;
     return (
       <Container>
         <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.onSubmit}/>
+        <ContactForm addContact={this.addContact}/>
         <h2>Contacts</h2>
-        <Filter onFilter={this.onFilter} value={filter} />
+        <Filter addFilter={this.addFilter} filter={filter} />
         <ContactList
-          contacts={contacts}
-          filter={filter}
-          onDelete={this.onDeleteHandler}
-          filterContacts={this.onFilterContacts}
+          contacts={this.filteredContacts()}
+          onDelete={this.onDelete}
         />
       </Container>
     );

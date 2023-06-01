@@ -12,7 +12,8 @@ function ContactList({ contacts, onDelete }) {
           <button
             className={css.btn}
             type="button"
-            onClick={() => onDelete(id)}
+            onClick={() => {
+              onDelete(id)}}
           />
         </li>
       ))}
