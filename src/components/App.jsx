@@ -14,12 +14,20 @@ export class App extends Component {
     ],
     filter: '',
   };
+  onSubmit = event => {
+    const loweredCase = event.name.toLowerCase().trim();
 
-  onformSubmit = ({ id, name, number }) => {
-    const contact = { id, name, number };
-    this.setState(({ contacts }) => {
-      return { contacts: [contact, ...contacts] };
-    });
+    const exists = this.state.contacts.some(
+      contact => contact.name.toLowerCase().trim() === loweredCase
+    );
+
+    if (exists) {
+      alert(`${event.name} is already in contacts!`);
+    } else {
+      this.setState(({ contacts }) => ({
+        contacts: [...contacts, event],
+      }));
+    }
   };
 
   onFilter = e => {
@@ -38,18 +46,13 @@ export class App extends Component {
   };
 
   onFilterContacts = () => {
-    let filterContact = [];
-    if (this.state.filter) {
-      filterContact = this.state.contacts.filter(
-        contact =>
-          contact.name.includes(this.state.filter) ||
-          contact.name.toLowerCase().includes(this.state.filter)
-      );
-    } else {
-      return this.state.contacts;
-    }
-    return filterContact;
+    const { filter, contacts } = this.state;
+
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
   };
+
 
 
   render() {
@@ -57,7 +60,7 @@ export class App extends Component {
     return (
       <Container>
         <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.onformSubmit} contacts={contacts} />
+        <ContactForm onSubmit={this.onSubmit}/>
         <h2>Contacts</h2>
         <Filter onFilter={this.onFilter} value={filter} />
         <ContactList

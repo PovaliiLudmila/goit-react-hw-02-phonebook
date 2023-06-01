@@ -5,19 +5,15 @@ import { nanoid } from 'nanoid'
 import { Formik, Form, Field } from 'formik';
 
 class ContactForm extends Component {
-  handleSubmit = ({ name, number }, { resetForm }) => {
-    const nameInContacts = this.props.contacts.find(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
-    );
-    if (nameInContacts) {
-      alert(`${name} is already in contacts`);
-      return;
-    }
-    const contact = { id: nanoid(), name, number };
-    this.props.onSubmit(contact);
-    resetForm();
+  handleSubmit = event => {
+    event.preventDefault();
 
-  
+    const name = event.target.name.value;
+    const number = event.target.number.value;
+    const { addContact } = this.props;
+
+    addContact({ id: nanoid(), name, number });
+    event.target.reset();
   };
 
 
@@ -57,6 +53,8 @@ class ContactForm extends Component {
 }
 
 ContactForm.propTypes = {
+  number: PropTypes.string,
+  name: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
 };
 
