@@ -5,25 +5,34 @@ import { nanoid } from 'nanoid'
 import { Formik, Form, Field } from 'formik';
 
 class ContactForm extends Component {
-  handleSubmit = event => {
-    event.preventDefault();
-
-    const name = event.target.name.value;
-    const number = event.target.number.value;
-    const { addContact } = this.props;
-
-    this.props.addContact({ id: nanoid(), name, number });
-    this.setState({ name: '', number: '' });
+  state = {
+    name: '',
+    number: '',
   };
 
+  onInputChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+
+    const event = {
+      id: nanoid(),
+      name: this.state.name,
+      number: this.state.number,
+    };
+
+    this.props.addContact(event);
+    this.setState({ name: '', number: '' });
+  };
 
   render() {
     return (
     <Formik 
         initialValues={{ name: '', number: '' }}
-        onSubmit={this.handleSubmit}
       >
-      <Form autoComplete="off" className={css.form}>
+      <Form autoComplete="off" className={css.form} onSubmit={this.handleSubmit}>
       <label className={css.label}>Name</label>
           <Field
             className={css.input}
@@ -33,6 +42,8 @@ class ContactForm extends Component {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             placeholder="Enter name"
             required
+            value={this.state.name}
+              onChange={this.onInputChange}
           />
    
         <label className={css.label}>Number</label>
@@ -44,6 +55,8 @@ class ContactForm extends Component {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             placeholder="Enter phone number"
             required
+            value={this.state.number}
+              onChange={this.onInputChange}
           />
         <button className={css.btn} type="submit">
           Add contact
